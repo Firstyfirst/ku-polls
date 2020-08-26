@@ -1,3 +1,3 @@
 # ku-polls
 
-[Home](../../wiki/home)
+[Home Wiki](../../wiki/home)
