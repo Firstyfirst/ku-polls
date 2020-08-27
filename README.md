@@ -2,4 +2,4 @@
 
 Kasetsart University survey web application.
 
-For more details you can click here [Home Wiki](../../wiki/home)
+For more details you can click here-[Home Wiki](../../wiki/home)
