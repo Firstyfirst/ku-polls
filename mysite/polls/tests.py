@@ -124,5 +124,15 @@ class QuestionDetailViewTests(TestCase):
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
-class PublishedAndEndedDateTests(TestCase):
-    "will be add later."
+class PublishedDateTests(TestCase):
+    
+    def test_is_published(self):
+        self.assertTrue(timezone.now >= Question.pub_date)
+        self.assertTrue(timezone.now <= Question.end_date)
+        self.assertTrue(Question.is_published())
+
+    def test_can_vote(self):
+        self.assertTrue(timezone.now >= Question.pub_date)
+        self.assertTrue(timezone.now <= Question.end_date)
+        self.assertTrue(Question.is_published())
+        self.assertTrue(Question.can_vote())
