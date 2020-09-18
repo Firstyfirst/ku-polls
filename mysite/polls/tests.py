@@ -124,15 +124,41 @@ class QuestionDetailViewTests(TestCase):
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
-class PublishedDateTests(TestCase):
+class IsPublishedTests(TestCase):
     
-    def test_is_published(self):
-        self.assertTrue(timezone.now >= Question.pub_date)
-        self.assertTrue(timezone.now <= Question.end_date)
+    def test_is_published_before_pub_date(self):
+        now = timezone.now
+        self.assertTrue(now < Question.pub_date)
+        self.assertFalse(Question.is_published())
+
+    def test_is_published_on_date(self):
+        now = timezone.now
+        self.assertTrue(now >= Question.pub_date)
+        self.assertTrue(now <= Question.end_date)
         self.assertTrue(Question.is_published())
 
+    def test_is_published_after_pub_date(self):
+        now = timezone.now
+        self.assertTrue(now > Question.end_date)
+        self.assertFalse(Question.is_published())
+
+class CanVoteTest(TestCase):
+
+    def test_can_vote_before_pub_date(self):    
+        now = timezone.now
+        self.assertTrue(now < Question.pub_date)
+        self.assertFalse(Question.is_published())
+        self.assertFalse(Question.can_vote())
+
     def test_can_vote(self):
+        now = timezone.now
         self.assertTrue(timezone.now >= Question.pub_date)
         self.assertTrue(timezone.now <= Question.end_date)
         self.assertTrue(Question.is_published())
         self.assertTrue(Question.can_vote())
+
+    def test_can_vote_after_end_date(self):
+        now = timezone.now
+        self.assertTrue(now > Question.end_date)
+        self.assertFalse(Question.is_published())
+        self.assertFalse(Question.can_vote())
