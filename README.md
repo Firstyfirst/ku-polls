@@ -10,4 +10,4 @@ This assignment involves conducting polls or surveys in the KU community. Althou
 
 * [Iteration 1 Plan](https://github.com/b6210545602/ku-polls/wiki/Iteration-1-Plan)
 
-* [Iteration 2 Plan]()
+* [Iteration 2 Plan](https://github.com/b6210545602/ku-polls/wiki/Iteration-2-Plan)
