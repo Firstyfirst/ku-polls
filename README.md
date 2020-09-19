@@ -4,7 +4,7 @@ This assignment involves conducting polls or surveys in the KU community. Althou
 
 * [Home Wiki](../../wiki/home)
 
-* [[Vision Statement]] - Statement that show the vision of the product.
+* [Vision Statement](../../wiki/vision statement) - Statement that show the vision of the product.
 
 * [[Requirements]] - The requirement of the product.
 
