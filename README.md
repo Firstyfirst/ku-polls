@@ -4,10 +4,10 @@ This assignment involves conducting polls or surveys in the KU community. Althou
 
 * [Home Wiki](../../wiki/home)
 
-* [Vision Statement]() - Statement that show the vision of the product.
+* [Vision Statement](https://github.com/b6210545602/ku-polls/wiki/Vision-Statement) - Statement that show the vision of the product.
 
-* [[Requirements]] - The requirement of the product.
+* [Requirements]() - The requirement of the product.
 
 * [Iteration 1 Plan](https://github.com/b6210545602/ku-polls/wiki/Iteration-1-Plan)
 
-* [[Iteration 2 Plan]]
+* [Iteration 2 Plan]()
