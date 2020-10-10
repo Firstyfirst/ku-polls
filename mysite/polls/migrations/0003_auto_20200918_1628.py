@@ -6,7 +6,6 @@ from django.utils.timezone import utc
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('polls', '0002_question_end_date'),
     ]

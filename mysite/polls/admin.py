@@ -4,17 +4,22 @@ from .models import Choice, Question
 
 
 class ChoiceInline(admin.TabularInline):
+    """Choices of each questions."""
+
     model = Choice
     extra = 3
 
 
 class QuestionAdmin(admin.ModelAdmin):
+    """The question in the admin page."""
+
     fieldsets = [
-        (None,               {'fields': ['question_text']}),
+        (None, {'fields': ['question_text']}),
         ('Date information', {'fields': ('pub_date', 'end_date'), 'classes': ['collapse']}),
     ]
     inlines = [ChoiceInline]
     list_display = ('question_text', 'pub_date', 'was_published_recently')
     list_filter = ['pub_date']
+
 
 admin.site.register(Question, QuestionAdmin)

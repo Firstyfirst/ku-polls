@@ -10,6 +10,8 @@ from .models import Choice, Question
 
 
 class IndexView(generic.ListView):
+    """Show all activated question."""
+
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
@@ -19,32 +21,36 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
+    """Show the choice of the question in that page."""
+
     model = Question
     template_name = 'polls/detail.html'
 
     def get(self, request, **kwargs):
+        """The method of HTTP."""
         try:
             question = Question.objects.get(pk=kwargs['pk'])
             if not question.can_vote():
                 return HttpResponseRedirect(reverse('polls:index'), messages.error(request, "This poll has been out of date."))
-        
         except ObjectDoesNotExist:
             return HttpResponseRedirect(reverse('polls:index'), messages.error(request, "Poll does not exist."))
         self.object = self.get_object()
         return self.render_to_response(self.get_context_data(object=self.get_object()))
 
     def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
+        """Excludes any questions that aren't published yet."""
         return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):
+    """Show the result page."""
+
     model = Question
     template_name = 'polls/results.html'
 
+
 def vote(request, question_id):
+    """Make the voting and redirection to result page."""
     question = get_object_or_404(Question, pk=question_id)
     if not question.can_vote():
         return HttpResponseRedirect(reverse('polls:index'), messages.error(request, "This poll has been out of date."))
