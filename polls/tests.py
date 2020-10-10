@@ -116,7 +116,7 @@ class QuestionDetailViewTests(TestCase):
             question_text='Future question.', days=5)
         url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
 
     def test_past_question(self):
         """
@@ -135,22 +135,25 @@ class IsPublishedTests(TestCase):
 
     def test_is_published_before_pub_date(self):
         """The question is not published before pub date."""
-        now = timezone.now
-        self.assertTrue(now < Question.pub_date)
-        self.assertFalse(Question.is_published())
+        now = timezone.now()
+        question = Question("Test1", pub_date=now + datetime.timedelta(days=1))
+        self.assertTrue(now < question.pub_date)
+        self.assertFalse(question.is_published())
 
     def test_is_published_on_date(self):
         """The question is published on pub date time."""
-        now = timezone.now
-        self.assertTrue(now >= Question.pub_date)
-        self.assertTrue(now <= Question.end_date)
-        self.assertTrue(Question.is_published())
+        now = timezone.now()
+        question = Question("Test1", pub_date=now - datetime.timedelta(days=1), end_date=now + datetime.timedelta(days=3))
+        self.assertTrue(now >= question.pub_date)
+        self.assertTrue(now <= question.end_date)
+        self.assertTrue(question.is_published())
 
     def test_is_published_after_pub_date(self):
         """The question is not published after pub date."""
-        now = timezone.now
-        self.assertTrue(now > Question.end_date)
-        self.assertFalse(Question.is_published())
+        now = timezone.now()
+        question = Question("Test1", pub_date=now - datetime.timedelta(days=2), end_date=now - datetime.timedelta(days=1))
+        self.assertTrue(now > question.end_date)
+        self.assertTrue(question.is_published())
 
 
 class CanVoteTest(TestCase):
@@ -158,25 +161,28 @@ class CanVoteTest(TestCase):
 
     def test_can_vote_before_pub_date(self):
         """The user could not vote before pub date."""
-        now = timezone.now
-        self.assertTrue(now < Question.pub_date)
-        self.assertFalse(Question.is_published())
-        self.assertFalse(Question.can_vote())
+        now = timezone.now()
+        question = Question("Test1", pub_date=now + datetime.timedelta(days=1))
+        self.assertTrue(now < question.pub_date)
+        self.assertFalse(question.is_published())
+        self.assertFalse(question.can_vote())
 
     def test_can_vote(self):
         """The user could vote between pub date and end date interval."""
-        now = timezone.now
-        self.assertTrue(now >= Question.pub_date)
-        self.assertTrue(now <= Question.end_date)
-        self.assertTrue(Question.is_published())
-        self.assertTrue(Question.can_vote())
+        now = timezone.now()
+        question = Question("Test1", pub_date=now - datetime.timedelta(days=1), end_date=now + datetime.timedelta(days=3))
+        self.assertTrue(now >= question.pub_date)
+        self.assertTrue(now <= question.end_date)
+        self.assertTrue(question.is_published())
+        self.assertTrue(question.can_vote())
 
     def test_can_vote_after_end_date(self):
         """The user could not vote after end date."""
-        now = timezone.now
-        self.assertTrue(now > Question.end_date)
-        self.assertFalse(Question.is_published())
-        self.assertFalse(Question.can_vote())
+        now = timezone.now()
+        question = Question("Test1", pub_date=now - datetime.timedelta(days=2), end_date=now - datetime.timedelta(days=1))
+        self.assertTrue(now > question.end_date)
+        self.assertTrue(question.is_published())
+        self.assertFalse(question.can_vote())
 
     # def setUp(self):
     #     self.client = Client()
