@@ -6,16 +6,25 @@
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        {% if question.can_vote %}
-            <li><p>
-                <a>{{ question.question_text }}</a>
-                &nbsp;&nbsp;
-                <a href="{% url 'polls:detail' question.id %}"> vote </a>
-                &nbsp;&nbsp;
-                <a href="{% url 'polls:results' question.id %}"> results </a>
-            </p></li>
-        {% endif %}    
+        <li><p>
+            <a>{{ question.question_text }}</a>
+            {% if user.is_authenticated %}
+                {% if question.can_vote %}
+                    &nbsp;&nbsp;
+                    <a href="{% url 'polls:detail' question.id %}"> vote </a>
+                {% endif %}
+            {% endif %}
+            &nbsp;&nbsp;
+            <a href="{% url 'polls:results' question.id %}"> results </a>
+        </p></li>    
     {% endfor %}
+    {% if user.is_authenticated %}
+        &nbsp;&nbsp;
+        <a href="{% url 'logout' %}">LOGOUT</a>
+    {% else %}
+        &nbsp;&nbsp;
+        <a href="{% url 'login' %}">LOGIN</a>
+    {% endif %}
     </ul>
 {% else %}
     <p>No polls are available.</p>

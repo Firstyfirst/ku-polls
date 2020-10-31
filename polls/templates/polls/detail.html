@@ -1,6 +1,6 @@
 <ul>
     <h1>{{ question.question_text }}</h1>
-
+    <b> Your last vote is {{question.last_vote}} <br></b>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
         <form action="{% url 'polls:vote' question.id %}" method="post">

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 # from decouple import config
 
@@ -123,3 +123,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [ 
+	os.path.join(BASE_DIR, 'static'),
+]
+
+AUTHENTICATION_BACKENDS = (
+    # username/password authentication
+'django.contrib.auth.backends.ModelBackend',  
+)
+
+LOGIN_REDIRECT_URL = '/polls/'

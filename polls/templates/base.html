@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  {% block title %}<title>Todo List</title>{% endblock %}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">   
+  <!-- Additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'logging/styles.css' %}">
+  <style>
+    th, td { padding: 5px; 
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+
+<div class="col-sm-10 ">
+  {% block content %} {% endblock %}
+</div>
+
+</div>
+</body>
+</html>
