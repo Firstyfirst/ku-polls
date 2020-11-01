@@ -15,7 +15,7 @@ def create_question(question_text, days):
 
 
 class AuthenticationTest(TestCase):
-    
+    """Test the authentication of the user."""
 
     def setUp(self):
         user = User.objects.create_user("Firstykus44", email="tsorawichaya@gmail.com", password="abcdef")
@@ -24,12 +24,16 @@ class AuthenticationTest(TestCase):
         user.save()
 
     def test_authenticated_user(self):
+        """Test the authenticated user."""
+
         self.client.login(username="Firstykus44", password="abcdef")
         response = self.client.get(reverse("polls:index"))
         self.assertContains(response, "Chopper")
         self.assertContains(response, "Tony Tony")
 
     def test_unauthenticated_user(self):
+        """Test the unauthenticated user."""
+
         response = self.client.get(reverse("polls:index"))
         self.assertContains(response, "Chopper")
         self.assertContains(response, "Tony Tony")
