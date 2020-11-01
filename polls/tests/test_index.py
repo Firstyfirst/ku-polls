@@ -61,6 +61,7 @@ class QuestionIndexViewTests(TestCase):
 
     def test_two_past_questions(self):
         """The questions index page may display multiple questions."""
+
         create_question(question_text="Past question 1.", days=-30)
         create_question(question_text="Past question 2.", days=-5)
         response = self.client.get(reverse('polls:index'))

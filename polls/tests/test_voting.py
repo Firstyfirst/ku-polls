@@ -15,7 +15,7 @@ def create_question(question_text, days):
     return Question.objects.create(question_text=question_text, pub_date=time)
 
 class VotingTest(TestCase) :
-    
+    """Test the voting of user in every situation."""
 
     def setUp(self):
         user = User.objects.create_user("Firstykus44", email="tsorawichaya@gmail.com", password="abcdef")
@@ -25,11 +25,15 @@ class VotingTest(TestCase) :
         self.client.login(username="Firstykus44", password="abcdef")
 
     def test_unauthenticated_vote(self):
+        """Test the unauthenticated vtoing."""
+
         question = create_question(question_text="Sample test", days=-1)
         response = self.client.get(reverse("polls:vote", args=(question.id,)))
         self.assertEqual(response.status_code, 302)
 
     def test_authenticated_vote(self):
+        """Test the authenticated voting."""
+
         self.client.login(username="Firstykus44", password="abcdef")
         question = create_question(question_text="Sample test 2", days=-1)
         response = self.client.get(reverse("polls:vote", args=(question.id,)))

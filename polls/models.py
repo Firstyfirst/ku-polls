@@ -51,6 +51,8 @@ class Choice(models.Model):
 
 
 class Vote(models.Model):
+    "Vote the choice of questions."
+
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     selected_choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     user = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
